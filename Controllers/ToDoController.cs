@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AspNetCoreTodo.Services;
+using AspNetCoreTodo.Models;
 
 namespace AspNetCoreTodo.Controllers
 {
@@ -34,8 +35,16 @@ namespace AspNetCoreTodo.Controllers
             //await waits for the result before continuing.
             var items = await _todoItemService.GetIncompleteItemsAsync();
             //put items into a model
+            //using object initialization. Creates an "unnamed" instance with the coded values
+            //and then assigns those values to the instance variable being created.
+            //ex: model is a instance of ToDoViewModel whose values comes 
+            //     from an unnamed instance of the same type with values Item = items.
+            var model = new ToDoViewModel()
+            {
+                Items = items
+            };
             //render view using the model
-            return null;
+            return View(model);
         }
     }
 }
