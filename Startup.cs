@@ -12,6 +12,7 @@ using AspNetCoreTodo.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AspNetCoreTodo.Services;
 
 namespace AspNetCoreTodo
 {
@@ -35,6 +36,14 @@ namespace AspNetCoreTodo
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            //Dependency Injection! - requests routed to ToDoController, ASP.NET Core will supply
+            //The FakeToDoItemService when controller asks for ITodoItemService.
+            
+            //tell ASP.NET Core to use FakeToDoItemService 
+            //whenever IToDoItemService interface is requested.
+            //singleton means only one copy of FakeToDoItemService is created & reused whenever service is requested.
+            services.AddSingleton<IToDoItemService, FakeToDoItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
