@@ -1,0 +1,43 @@
+<!--
+    This view is rendered by the Index() action from the ToDoController.
+    It will take data in the view model & display it in a table.
+-->
+<!-- NOTES:
+    -Views build with Razor Templating Lang. Which is mix of HTML & C#.
+     C# statements prefixed with '(at)symbol'
+    
+    - (at)model tells Razor which model this view should be bound to 
+-->
+
+@model ToDoViewModel
+@{
+    ViewData["Title"] = "Manage your todo list";
+}
+<div class="panel panel-default todo-panel">
+    <div class="panel-heading">@ViewData["Title"]</div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>&#x2714;</td>
+                <td>Item</td>
+                <td>Due</td>
+            </tr>
+        </thead>
+        <!--The model is accessed through Model property-->
+        <!--iterate through each todo item & render a table row <tr> element 
+            with name, due date, and a checkbox.-->
+        @foreach (var item in Model.Items){
+            <tr>
+                <td>
+                    <input type = "checkbox" class="done-checkbox">
+                </td>
+                <td>@item.Title</td>
+                <td>@item.DueAt</td>
+            </tr>
+        }
+    </table>
+    <div class="panel-footer add-item-form">
+        <!-- TODO: Add item form -->
+    </div>
+</div>
