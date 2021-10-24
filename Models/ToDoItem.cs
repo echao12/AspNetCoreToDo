@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCoreTodo.Models{
-    //this class defines what each todo item needs to store in the db.
+    //this class defines the fields the todo item entity needs to store in the db.
     public class ToDoItem {
         //id is a randomly generated globally unique identifier (Guid). ex: 43ec09f2-7f70-4f4b-9559-65011d5781bb
         //unlike incrementing ids, they are long & have extremely low chance for duplication & dont have to setup db to auto increment.

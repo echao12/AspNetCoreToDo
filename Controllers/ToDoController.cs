@@ -20,7 +20,7 @@ namespace AspNetCoreTodo.Controllers
             //get todo item from database
             //put items into a model
             //render view using the model
-
+            return null;
         }
     }
 }
