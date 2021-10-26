@@ -43,7 +43,13 @@ namespace AspNetCoreTodo
             //tell ASP.NET Core to use FakeToDoItemService 
             //whenever IToDoItemService interface is requested.
             //singleton means only one copy of FakeToDoItemService is created & reused whenever service is requested.
-            services.AddSingleton<IToDoItemService, FakeToDoItemService>();
+            //services.AddSingleton<IToDoItemService, FakeToDoItemService>();
+            
+            //add service to the service container with a scoped lifecycle.
+            //scoped means a new instance of ToDoItemService will be created during each web request.
+            //NOTE: ALWAYS USE SCOPED WHEN ADDING SERVICE THAT INTERACTS WITH ENTITY FRAMEWORK CORE & A DATABASE.
+                //this is due to how EFC manages database connections for each request.
+            services.AddScoped<IToDoItemService, ToDoItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
