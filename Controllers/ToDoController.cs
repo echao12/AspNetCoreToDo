@@ -46,5 +46,26 @@ namespace AspNetCoreTodo.Controllers
             //render view using the model
             return View(model);
         }
+
+        //FN Notes: Notice parameter is a ToDoItem model.
+        //  ASP.NET will perform model binding and match info from form and place it into
+        //  a newItem variable.
+        //TOKENM NOTES: this token tells asp.net core to look for and verify the token added by "asp-" tags.
+        //  Ensures that this application is the one that rendered & submitted the form. not a fake malicious one.
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> AddItem(ToDoItem newItem)
+        {
+            //check if required attributes for the model are invalid(missing/blank)
+            if(!ModelState.IsValid){
+                //refresh page if not valid
+                return RedirectToAction("Index");
+            }
+            //will return true/false depending on successfully adding to database.
+            var successful = await _todoItemService.AddItemAsync(newItem);
+            if(!successful){
+                return BadRequest("Could not add item.");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

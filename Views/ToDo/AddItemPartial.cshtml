@@ -1,0 +1,19 @@
+<!--
+    This is a partial view, which is a small piece of a larger view
+    that is in a separate file.
+-->
+<!--tell asp.net core that this view should be paired with the ToDoItem model
+        allows us to specify "Title" on the input tag to map the input element to the Title property of ToDoItem.-->
+@model ToDoItem 
+<!--
+    asp-action generates URL for the form.
+    asp-action gets replaced with real path to AddItem
+    //in this case, it is "/ToDo/AddItem"
+    adding "asp-" also adds hidden field to the form with a verification token
+    that helps prevent cross-site request forgery attacks (CSRF)
+-->
+<form asp-action="AddItem" method="POST">
+    <label asp-for="Title">Add a new item:</label>
+    <input asp-for="Title">
+    <button type="submit">Add</button>
+</form>
