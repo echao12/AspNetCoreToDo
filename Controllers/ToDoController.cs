@@ -50,7 +50,7 @@ namespace AspNetCoreTodo.Controllers
         //FN Notes: Notice parameter is a ToDoItem model.
         //  ASP.NET will perform model binding and match info from form and place it into
         //  a newItem variable.
-        //TOKENM NOTES: this token tells asp.net core to look for and verify the token added by "asp-" tags.
+        //TOKEN NOTES: this token tells asp.net core to look for and verify the token added by "asp-" tags.
         //  Ensures that this application is the one that rendered & submitted the form. not a fake malicious one.
         [ValidateAntiForgeryToken] 
         public async Task<IActionResult> AddItem(ToDoItem newItem)
