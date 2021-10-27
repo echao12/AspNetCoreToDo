@@ -24,5 +24,20 @@ namespace AspNetCoreTodo.Services
                 .ToArrayAsync(); //async fn that grabs all matched entities & package them into an Array.
             return items;
         }
+
+        public async Task<bool> AddItemAsync(ToDoItem newItem)
+        {
+            //ASP.Net Core's model binder already set Title property from the AddItem action in the controller.
+            newItem.Id = Guid.NewGuid();
+            newItem.IsDone = false;
+            newItem.DueAt = DateTimeOffset.Now.AddDays(3);
+
+            _context.Items.Add(newItem);//add the newItem to the Items table in the database context.
+
+            var saveResult = await _context.SaveChangesAsync();//save the changes to the db
+            
+            //if save successful, should return 1.
+            return saveResult == 1; //if matching with 1, successful. return true. else return false.
+        }
     }
 }
