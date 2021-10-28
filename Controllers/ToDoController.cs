@@ -67,5 +67,26 @@ namespace AspNetCoreTodo.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        //note:if incoming request data includes a field names id, ASP.NET Core will try to parse it as a Guid.
+        //  works b/c hidden element in checkbox form is named id.
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkDone(Guid id) 
+        {
+            if (id == Guid.Empty)
+            {
+                //id parameter in request is missing or unable to be parsed, refresh page.
+                return RedirectToAction("Index");//redirect to ToDo/Index
+            }
+
+            //call service layer to update database.
+            var successful = await _todoItemService.MarkDoneAsync(id);
+            if(!successful)
+            {
+                return BadRequest("Could not mark item as done.");
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

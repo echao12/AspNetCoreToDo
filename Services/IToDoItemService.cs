@@ -12,5 +12,6 @@ namespace AspNetCoreTodo.Services
         //Task type is similar to a future/promise. Its for noting Asynchronous code.
         Task<ToDoItem[]> GetIncompleteItemsAsync();
         Task<bool> AddItemAsync(ToDoItem newItem);
+        Task<bool> MarkDoneAsync(Guid id);
     }
 }

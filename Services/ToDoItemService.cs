@@ -39,5 +39,19 @@ namespace AspNetCoreTodo.Services
             //if save successful, should return 1.
             return saveResult == 1; //if matching with 1, successful. return true. else return false.
         }
+
+        public async Task<bool> MarkDoneAsync(Guid id)
+        {
+            var item = await _context.Items
+                .Where(x => x.Id == id) //looks for x where x.Id = the passed id
+                .SingleOrDefaultAsync();//return item or null if not found.
+            
+            if (item == null) return false;
+
+            item.IsDone = true;
+
+            var saveResult = await _context.SaveChangesAsync();//save changes to database.
+            return saveResult == 1;
+        }
     }
 }
